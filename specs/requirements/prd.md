@@ -40,8 +40,8 @@ so that mistakes in the automatic reading don't become mistakes on my
 claim.
 5. As an Employee, I want to add a short note on the business purpose of a
 claim, so that my manager has the context to decide it.
-6. As an Employee, I want my submitted claim checked against the team's
-spending policy, with a plain-language reason shown when it breaks a rule,
+6. As an Employee, I want to see whether my claim breaks the team's spending
+policy before I submit it, with a plain-language reason shown when it does,
 so that I understand upfront why it might be questioned.
 7. As an Employee, I want to see my own claims and each one's status, so that
 I know what's pending, approved or rejected.
@@ -66,7 +66,8 @@ supplies, other.
 - Spending policy: expressed as a set of rules (e.g. a per-category monthly
 cap, such as team outings capped at 20,000 LKR per month); Finance/Admin can
 edit the limits at any time, and a claim breaking a rule is flagged with a
-plain-language reason at submission.
+plain-language reason while the employee is still filling in the claim, before
+they submit it — not only after.
 - The initial policy rule set is seeded with the team-outing example (up to
 20,000 LKR per month); Finance/Admin can add, change or remove rules from
 there.

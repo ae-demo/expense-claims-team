@@ -106,6 +106,23 @@ components:
         monthlyCapAmount: { type: number, format: double }
         description: { type: string }
         active: { type: boolean, default: true }
+    PolicyCheckInput:
+      type: object
+      required: [claimDate, total, category]
+      properties:
+        claimDate: { type: string, format: date }
+        total: { type: number, format: double }
+        category:
+          type: string
+          enum: [meals, travel, accommodation, office-supplies, other]
+    PolicyCheckResult:
+      type: object
+      required: [flags]
+      properties:
+        flags:
+          type: array
+          items: { $ref: '#/components/schemas/Flag' }
+          description: empty when the draft breaks no policy rule
 security:
   - oauth2: []
 paths:
@@ -163,6 +180,33 @@ paths:
               schema: { $ref: '#/components/schemas/Claim' }
         '400':
           description: Invalid claim fields
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Error' }
+        '401':
+          description: Not signed in
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Error' }
+  /me/claims/policy-check:
+    post:
+      operationId: checkClaimPolicy
+      summary: Whether a draft claim would break a policy rule, before submitting
+      security:
+        - oauth2: [claims:submit]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/PolicyCheckInput' }
+      responses:
+        '200':
+          description: Any flags the draft would raise if submitted as-is
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/PolicyCheckResult' }
+        '400':
+          description: Invalid draft fields
           content:
             application/json:
               schema: { $ref: '#/components/schemas/Error' }

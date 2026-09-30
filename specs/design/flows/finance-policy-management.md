@@ -18,3 +18,4 @@ sequenceDiagram
     expense-webapp->>expense-api: list every claim
     expense-api-->>expense-webapp: claims across every team
 ```
+

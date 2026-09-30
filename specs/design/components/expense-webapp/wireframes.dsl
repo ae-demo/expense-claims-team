@@ -28,6 +28,9 @@ screen NewClaim "Employee uploads a receipt, corrects auto-filled fields, adds a
   row
     input "Total — e.g. 8500"
     select "Category: Meals"
+  card "Policy check"
+    badge "Over monthly cap" warning
+    text "Meals claims this month would total 21,300 LKR, over the 20,000 LKR cap"
   textarea "Business purpose note"
   row
     right

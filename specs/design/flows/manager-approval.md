@@ -16,3 +16,4 @@ sequenceDiagram
     expense-webapp->>expense-api: record decision
     expense-api-->>expense-webapp: claim status updated
 ```
+
