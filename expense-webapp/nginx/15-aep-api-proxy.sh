@@ -66,19 +66,41 @@ sed -i "s|__API_BACKEND__|${API_BACKEND}|g" "$CONF"
 sed -i "s|__API_CONTEXT__|${API_CONTEXT}|g" "$CONF"
 
 # --- extra sibling: receipt-agent (ai-agent, chat contract, /api/receipt-agent/) ---
-RECEIPT_AGENT_BACKEND="$(echo "${RECEIPT_AGENT_URL:-}" | sed -e 's|^https\{0,1\}://||' -e 's|/.*$||')"
+#
+# Same two lanes as the primary sibling above, and NOT interchangeable: this
+# agent's design sets exposesAPI.auth, so it authorizes on the gateway-injected
+# identity. A direct-Service call carries none of that and the agent 401s.
+RECEIPT_AGENT_URL_RESOLVED="${RECEIPT_AGENT_GATEWAY_URL:-}"
+RECEIPT_AGENT_LANE="gateway (token validated, identity injected)"
+if [ -z "$RECEIPT_AGENT_URL_RESOLVED" ]; then
+    RECEIPT_AGENT_URL_RESOLVED="${RECEIPT_AGENT_URL:-}"
+    RECEIPT_AGENT_LANE="direct Service (NO token validation)"
+fi
+RECEIPT_AGENT_BACKEND="$(echo "${RECEIPT_AGENT_URL_RESOLVED}" | sed -e 's|^https\{0,1\}://||' -e 's|/.*$||')"
+RECEIPT_AGENT_CONTEXT="$(echo "${RECEIPT_AGENT_URL_RESOLVED}" | sed -e 's|^https\{0,1\}://[^/]*||' -e 's|/$||')"
 if [ -z "$RECEIPT_AGENT_BACKEND" ]; then
     echo "aep-api-proxy: no receipt-agent address injected; /api/receipt-agent/ will 502 until one is"
     RECEIPT_AGENT_BACKEND="127.0.0.1:9"
+    RECEIPT_AGENT_CONTEXT=""
 fi
-echo "aep-api-proxy: /api/receipt-agent/ -> ${RECEIPT_AGENT_BACKEND}"
+echo "aep-api-proxy: /api/receipt-agent/ -> ${RECEIPT_AGENT_BACKEND}${RECEIPT_AGENT_CONTEXT}  [${RECEIPT_AGENT_LANE}]"
 sed -i "s|__RECEIPT_AGENT_BACKEND__|${RECEIPT_AGENT_BACKEND}|g" "$CONF"
+sed -i "s|__RECEIPT_AGENT_CONTEXT__|${RECEIPT_AGENT_CONTEXT}|g" "$CONF"
 
 # --- extra sibling: policy-rule-agent (ai-agent, chat contract, /api/policy-rule-agent/) ---
-POLICY_RULE_AGENT_BACKEND="$(echo "${POLICY_RULE_AGENT_URL:-}" | sed -e 's|^https\{0,1\}://||' -e 's|/.*$||')"
+POLICY_RULE_AGENT_URL_RESOLVED="${POLICY_RULE_AGENT_GATEWAY_URL:-}"
+POLICY_RULE_AGENT_LANE="gateway (token validated, identity injected)"
+if [ -z "$POLICY_RULE_AGENT_URL_RESOLVED" ]; then
+    POLICY_RULE_AGENT_URL_RESOLVED="${POLICY_RULE_AGENT_URL:-}"
+    POLICY_RULE_AGENT_LANE="direct Service (NO token validation)"
+fi
+POLICY_RULE_AGENT_BACKEND="$(echo "${POLICY_RULE_AGENT_URL_RESOLVED}" | sed -e 's|^https\{0,1\}://||' -e 's|/.*$||')"
+POLICY_RULE_AGENT_CONTEXT="$(echo "${POLICY_RULE_AGENT_URL_RESOLVED}" | sed -e 's|^https\{0,1\}://[^/]*||' -e 's|/$||')"
 if [ -z "$POLICY_RULE_AGENT_BACKEND" ]; then
     echo "aep-api-proxy: no policy-rule-agent address injected; /api/policy-rule-agent/ will 502 until one is"
     POLICY_RULE_AGENT_BACKEND="127.0.0.1:9"
+    POLICY_RULE_AGENT_CONTEXT=""
 fi
-echo "aep-api-proxy: /api/policy-rule-agent/ -> ${POLICY_RULE_AGENT_BACKEND}"
+echo "aep-api-proxy: /api/policy-rule-agent/ -> ${POLICY_RULE_AGENT_BACKEND}${POLICY_RULE_AGENT_CONTEXT}  [${POLICY_RULE_AGENT_LANE}]"
 sed -i "s|__POLICY_RULE_AGENT_BACKEND__|${POLICY_RULE_AGENT_BACKEND}|g" "$CONF"
+sed -i "s|__POLICY_RULE_AGENT_CONTEXT__|${POLICY_RULE_AGENT_CONTEXT}|g" "$CONF"
