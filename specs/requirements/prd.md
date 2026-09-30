@@ -69,12 +69,12 @@ edit the limits at any time, and a claim breaking a rule is flagged with a
 plain-language reason at submission.
 - The initial policy rule set is seeded with the team-outing example (up to
 20,000 LKR per month); Finance/Admin can add, change or remove rules from
-there. *assumed*
+there.
 - Each employee has a single assigned manager, and a manager's "team" is the
 set of employees assigned to them; this assignment is maintained as part of
-user setup, not by employees themselves. *assumed*
+user setup, not by employees themselves.
 - All amounts are in LKR (Sri Lankan Rupees), matching the example policy
-given. *assumed*
+given.
 - Notifications: none by email — employees and managers see claim and
 approval status in the app itself, not via email or SMS.
 
