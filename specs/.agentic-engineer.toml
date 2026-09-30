@@ -1,0 +1,4 @@
+apiVersion = "agentic-engineer/v1"
+name = "expense-claims-team"
+createdAt = "2026-09-30T11:08:19Z"
+idea = "Build an expense claims app for the team.\n\n- Employees sign in, upload a photo or PDF of a receipt, and the merchant,\n  date, total and a category (meals, travel, accommodation, office supplies,\n  other) are filled in automatically from the receipt. They can correct any\n  field, add a short note on the business purpose, and submit the claim.\n- Each claim is checked against a simple policy ( example team outing up to 20,000 LKR per\n month) and flagged with a plain-language reason when it breaks it.\n- Managers see pending claims from their team, with any flags, and approve or\n  reject each one with a comment.\n- Employees see their own claims and each one's status."
