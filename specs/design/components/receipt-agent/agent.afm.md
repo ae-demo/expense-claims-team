@@ -22,7 +22,7 @@ interfaces:
 
 x-aep:
   memory:
-    type: "server"
+    type: "client"
   identity:
     mode: "on-behalf-of"
   attachments:
