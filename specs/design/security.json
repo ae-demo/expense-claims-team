@@ -1,0 +1,57 @@
+{
+  "version": 3,
+  "permissions": [
+    {
+      "resource": "claims",
+      "component": "expense-api",
+      "description": "Expense claims, their flags and decisions",
+      "actions": [
+        { "handle": "read", "description": "The caller's own claims" },
+        { "handle": "read-team", "description": "Pending claims of the caller's own team" },
+        { "handle": "read-all", "description": "Every claim, across every team" },
+        { "handle": "submit", "description": "Create and send a claim" },
+        { "handle": "decide", "description": "Approve or reject a submitted claim" }
+      ]
+    },
+    {
+      "resource": "policy-rules",
+      "component": "expense-api",
+      "description": "The spending policy's category caps",
+      "actions": [
+        { "handle": "read", "description": "The active policy rules" },
+        { "handle": "manage", "description": "Add, change or remove policy rules" }
+      ]
+    }
+  ],
+  "groups": [],
+  "roles": [
+    {
+      "name": "Employee",
+      "description": "Submits and follows their own expense claims.",
+      "stories": [1, 2, 3, 4, 5, 6, 7],
+      "grants": ["claims:read", "claims:submit", "policy-rules:read"],
+      "assignTo": ["Employees"]
+    },
+    {
+      "name": "Manager",
+      "description": "Reviews and decides their own team's pending claims.",
+      "stories": [8, 9],
+      "grants": ["claims:read", "claims:submit", "claims:read-team", "claims:decide", "policy-rules:read"],
+      "assignTo": ["Managers"]
+    },
+    {
+      "name": "FinanceAdmin",
+      "description": "Maintains the spending policy and sees claims across every team.",
+      "stories": [10, 11],
+      "grants": ["claims:read-all", "policy-rules:read", "policy-rules:manage"],
+      "assignTo": ["Finance"]
+    }
+  ],
+  "testUsers": [
+    { "username": "test-employee", "roles": ["Employee"] },
+    { "username": "test-employee-2", "roles": ["Employee"] },
+    { "username": "test-manager", "roles": ["Manager"] },
+    { "username": "test-manager-2", "roles": ["Manager"] },
+    { "username": "test-finance-admin", "roles": ["FinanceAdmin"] }
+  ]
+}

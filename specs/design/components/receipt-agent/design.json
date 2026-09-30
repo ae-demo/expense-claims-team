@@ -1,0 +1,16 @@
+{
+  "name": "receipt-agent",
+  "type": "ai-agent",
+  "version": "0.1.0",
+  "language": "TypeScript",
+  "buildpack": "docker",
+  "appPath": "receipt-agent",
+  "entrypoint": "deployment/ai-agent",
+  "exposure": "internet",
+  "dependencies": [
+    { "kind": "platform-resource", "name": "user-auth", "resourceType": "thunder-app" }
+  ],
+  "description": "Reads an uploaded receipt photo or PDF and returns the merchant, date, total and category (meals, travel, accommodation, office supplies, other) it can read from it, for the employee to review and correct in expense-webapp before submitting. Stateless per receipt — it keeps no claim data and calls no other component.",
+  "stories": [2, 3],
+  "skillsPinned": ["agent-building"]
+}

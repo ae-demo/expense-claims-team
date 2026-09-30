@@ -1,0 +1,17 @@
+{
+  "name": "expense-api",
+  "type": "service",
+  "version": "0.1.0",
+  "language": "Ballerina",
+  "buildpack": "docker",
+  "appPath": "expense-api",
+  "entrypoint": "deployment/service",
+  "exposure": "internet",
+  "dependencies": [
+    { "kind": "platform-resource", "name": "user-auth", "resourceType": "thunder-app" },
+    { "kind": "platform-resource", "name": "expense-db", "resourceType": "postgres-cnpg" }
+  ],
+  "description": "Owns claims, policy rules and decisions. Creates and lists expense claims, checks each submitted claim against the active policy rules and raises a flag with a plain-language reason when one breaks, lists a manager's own team's pending claims, records approve/reject decisions, and lets Finance/Admin maintain policy rules and see claims across every team. It does not read receipt files itself — the webapp pre-fills claim fields via receipt-agent before calling this API — and it does not send any notification.",
+  "stories": [5, 6, 7, 8, 9, 10, 11],
+  "skillsPinned": ["openapi-conventions", "ballerina", "thunder-authentication", "api-management"]
+}
