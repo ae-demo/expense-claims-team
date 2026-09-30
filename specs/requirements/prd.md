@@ -30,29 +30,29 @@ claims across every team, not just one.
 ## User Stories
 
 1. As an Employee, I want to sign in securely, so that my claims are tied to
- my identity.
+my identity.
 2. As an Employee, I want to upload a photo or PDF of a receipt, so that I
- don't have to type its details from scratch.
+don't have to type its details from scratch.
 3. As an Employee, I want the merchant, date, total and category read
- automatically from my uploaded receipt, so that filing a claim is fast.
+automatically from my uploaded receipt, so that filing a claim is fast.
 4. As an Employee, I want to correct any auto-filled field before submitting,
- so that mistakes in the automatic reading don't become mistakes on my
- claim.
+so that mistakes in the automatic reading don't become mistakes on my
+claim.
 5. As an Employee, I want to add a short note on the business purpose of a
- claim, so that my manager has the context to decide it.
+claim, so that my manager has the context to decide it.
 6. As an Employee, I want my submitted claim checked against the team's
- spending policy, with a plain-language reason shown when it breaks a rule,
- so that I understand upfront why it might be questioned.
+spending policy, with a plain-language reason shown when it breaks a rule,
+so that I understand upfront why it might be questioned.
 7. As an Employee, I want to see my own claims and each one's status, so that
- I know what's pending, approved or rejected.
+I know what's pending, approved or rejected.
 8. As a Manager, I want to see pending claims from my own team, with any
- policy flags, so that I can review what needs my decision.
+policy flags, so that I can review what needs my decision.
 9. As a Manager, I want to approve or reject each claim with a comment, so
- that my decision and its reasoning are on record.
+that my decision and its reasoning are on record.
 10. As a Finance/Admin, I want to edit the spending policy's limits, so that
- they stay current without needing a new release of the app.
+they stay current without needing a new release of the app.
 11. As a Finance/Admin, I want to see claims across every team, so that I have
- a single view of organization-wide spend.
+a single view of organization-wide spend.
 
 ## Product Decisions
 
@@ -63,8 +63,6 @@ in merchant, date, total and category; the employee can correct any field
 before submitting.
 - Receipt categories are fixed: meals, travel, accommodation, office
 supplies, other.
-- Receipt files (photos and PDFs) are stored using the organization's
-registered file storage service (Amazon S3).
 - Spending policy: expressed as a set of rules (e.g. a per-category monthly
 cap, such as team outings capped at 20,000 LKR per month); Finance/Admin can
 edit the limits at any time, and a claim breaking a rule is flagged with a
