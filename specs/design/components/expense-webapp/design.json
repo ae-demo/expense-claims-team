@@ -7,13 +7,82 @@
   "appPath": "expense-webapp",
   "entrypoint": "deployment/web-application",
   "exposure": "internet",
-  "dependencies": [
-    { "kind": "component", "name": "expense-api" },
-    { "kind": "component", "name": "receipt-agent" },
-    { "kind": "component", "name": "policy-rule-agent" },
-    { "kind": "platform-resource", "name": "user-auth", "resourceType": "thunder-app" }
+  "stories": [
+    1,
+    2,
+    4,
+    5,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12
   ],
   "description": "The single-page app every actor uses: employees upload receipts, correct auto-filled fields, add a note and submit claims, and see their own claims' status; managers review their team's pending claims and flags and decide them; Finance/Admin edits policy rules (by form or by plain language) and sees claims across every team. It holds no business logic of its own — every read and write goes through expense-api, receipt-agent or policy-rule-agent.",
-  "stories": [1, 2, 4, 5, 7, 8, 9, 10, 11, 12],
-  "skillsPinned": ["wireframes", "react-webapp", "oxygen-ui-design-system", "thunder-authentication"]
+  "dependencies": [
+    {
+      "kind": "component",
+      "name": "expense-api",
+      "wiring": {
+        "endpoint": {
+          "component": "expense-claims-team-expense-api",
+          "name": "http",
+          "visibility": "project",
+          "envBindings": {
+            "address": "EXPENSE_API_URL"
+          }
+        }
+      }
+    },
+    {
+      "kind": "component",
+      "name": "receipt-agent",
+      "wiring": {
+        "endpoint": {
+          "component": "expense-claims-team-receipt-agent",
+          "name": "http",
+          "visibility": "project",
+          "envBindings": {
+            "address": "RECEIPT_AGENT_URL"
+          }
+        }
+      }
+    },
+    {
+      "kind": "component",
+      "name": "policy-rule-agent",
+      "wiring": {
+        "endpoint": {
+          "component": "expense-claims-team-policy-rule-agent",
+          "name": "http",
+          "visibility": "project",
+          "envBindings": {
+            "address": "POLICY_RULE_AGENT_URL"
+          }
+        }
+      }
+    },
+    {
+      "kind": "platform-resource",
+      "name": "user-auth",
+      "resourceType": "thunder-app",
+      "wiring": {
+        "ref": "expense-claims-te-78f6fe06",
+        "envBindings": {
+          "client_id": "USER_AUTH_CLIENT_ID",
+          "issuer": "USER_AUTH_ISSUER",
+          "jwks_url": "USER_AUTH_JWKS_URL",
+          "resource": "USER_AUTH_RESOURCE",
+          "scopes": "USER_AUTH_SCOPES"
+        }
+      }
+    }
+  ],
+  "skillsPinned": [
+    "wireframes",
+    "react-webapp",
+    "oxygen-ui-design-system",
+    "thunder-authentication"
+  ]
 }

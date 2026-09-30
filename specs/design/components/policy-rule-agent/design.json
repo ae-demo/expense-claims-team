@@ -7,12 +7,62 @@
   "appPath": "policy-rule-agent",
   "entrypoint": "deployment/ai-agent",
   "exposure": "internet",
-  "dependencies": [
-    { "kind": "component", "name": "expense-api", "description": "Reads the active policy rules for context and creates or updates the rule the plain-language description parses to." },
-    { "kind": "platform-resource", "name": "user-auth", "resourceType": "thunder-app" },
-    { "kind": "platform-resource", "name": "policy-memory-db", "resourceType": "postgres-cnpg", "description": "Its own conversation store — one row per rule-authoring conversation, keyed by the caller. Holds no policy or claim data itself." }
+  "stories": [
+    12
   ],
   "description": "Turns a Finance/Admin's plain-language description of a spending policy rule (e.g. \"cap meals at 25,000 LKR a month\") into a structured policy rule and saves it via expense-api. Keeps its own conversation (for a clarifying question when a category or amount is ambiguous) in a dedicated store scoped to the caller. It does not decide claims, does not read claims, and only ever writes to policy-rules — never to claims or decisions.",
-  "stories": [12],
-  "skillsPinned": ["agent-building"]
+  "dependencies": [
+    {
+      "kind": "component",
+      "name": "expense-api",
+      "description": "Reads the active policy rules for context and creates or updates the rule the plain-language description parses to.",
+      "wiring": {
+        "endpoint": {
+          "component": "expense-claims-team-expense-api",
+          "name": "http",
+          "visibility": "project",
+          "envBindings": {
+            "address": "EXPENSE_API_URL"
+          }
+        }
+      }
+    },
+    {
+      "kind": "platform-resource",
+      "name": "user-auth",
+      "resourceType": "thunder-app",
+      "wiring": {
+        "ref": "expense-claims-te-78f6fe06",
+        "envBindings": {
+          "client_id": "USER_AUTH_CLIENT_ID",
+          "issuer": "USER_AUTH_ISSUER",
+          "jwks_url": "USER_AUTH_JWKS_URL",
+          "resource": "USER_AUTH_RESOURCE",
+          "scopes": "USER_AUTH_SCOPES"
+        }
+      }
+    },
+    {
+      "kind": "platform-resource",
+      "name": "policy-memory-db",
+      "description": "Its own conversation store — one row per rule-authoring conversation, keyed by the caller. Holds no policy or claim data itself.",
+      "resourceType": "postgres-cnpg",
+      "wiring": {
+        "ref": "expense-claims-te-1a46c17d",
+        "envBindings": {
+          "dbname": "POLICY_MEMORY_DB_DBNAME",
+          "host": "POLICY_MEMORY_DB_HOST",
+          "password": "POLICY_MEMORY_DB_PASSWORD",
+          "port": "POLICY_MEMORY_DB_PORT",
+          "user": "POLICY_MEMORY_DB_USER"
+        }
+      }
+    }
+  ],
+  "exposesAPI": {
+    "auth": "end-user-required"
+  },
+  "skillsPinned": [
+    "agent-building"
+  ]
 }
