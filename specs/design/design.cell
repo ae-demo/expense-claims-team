@@ -1,4 +1,5 @@
 title Expense Claims Team
+# Reflects PRD through story 12 (Finance/Admin plain-language policy rule entry)
 
 component expense-webapp as "Expense Claims Webapp" web-application
 component expense-api as "Expense Claims API" service
