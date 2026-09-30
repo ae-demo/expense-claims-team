@@ -8,9 +8,10 @@
   "entrypoint": "deployment/ai-agent",
   "exposure": "internet",
   "dependencies": [
-    { "kind": "platform-resource", "name": "user-auth", "resourceType": "thunder-app" }
+    { "kind": "platform-resource", "name": "user-auth", "resourceType": "thunder-app" },
+    { "kind": "platform-resource", "name": "receipt-memory-db", "resourceType": "postgres-cnpg", "description": "Its own conversation store — one row per receipt-reading conversation, keyed by the caller. Holds no claim data." }
   ],
-  "description": "Reads an uploaded receipt photo or PDF and returns the merchant, date, total and category (meals, travel, accommodation, office supplies, other) it can read from it, for the employee to review and correct in expense-webapp before submitting. Stateless per receipt — it keeps no claim data and calls no other component.",
+  "description": "Reads an uploaded receipt photo or PDF and returns the merchant, date, total and category (meals, travel, accommodation, office supplies, other) it can read from it, for the employee to review and correct in expense-webapp before submitting. Keeps its own conversation (in case a field needs a follow-up question) in a dedicated store scoped to the caller; holds no claim data and calls no other component.",
   "stories": [2, 3],
   "skillsPinned": ["agent-building"]
 }

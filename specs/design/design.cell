@@ -5,6 +5,8 @@ component expense-api as "Expense Claims API" service
 component receipt-agent as "Receipt Reader Agent" ai-agent
 component policy-rule-agent as "Policy Rule Agent" ai-agent
 component expense-db as "Expense Claims DB" database
+component receipt-memory-db as "Receipt Agent Memory" database
+component policy-memory-db as "Policy Rule Agent Memory" database
 
 east user-auth as "Thunder Auth" identity-server
 
@@ -21,6 +23,8 @@ expense-api -> user-auth
 expense-api -> expense-db
 
 receipt-agent -> user-auth
+receipt-agent -> receipt-memory-db
 
 policy-rule-agent -> expense-api
 policy-rule-agent -> user-auth
+policy-rule-agent -> policy-memory-db
