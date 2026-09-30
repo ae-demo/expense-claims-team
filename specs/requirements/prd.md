@@ -53,6 +53,9 @@ that my decision and its reasoning are on record.
 they stay current without needing a new release of the app.
 11. As a Finance/Admin, I want to see claims across every team, so that I have
 a single view of organization-wide spend.
+12. As a Finance/Admin, I want to add a policy rule by typing it in plain
+language, so that I don't have to fill in a structured form for a simple
+change.
 
 ## Product Decisions
 
@@ -78,6 +81,11 @@ user setup, not by employees themselves.
 given.
 - Notifications: none by email — employees and managers see claim and
 approval status in the app itself, not via email or SMS.
+- Policy rule entry: besides the structured form, Finance/Admin may describe a
+new or changed policy rule in plain language (e.g. "cap meals at 25,000 LKR a
+month"); an agent reads it and turns it into the structured rule (category,
+monthly cap, description) before it is saved — Finance/Admin still sees and
+can adjust the parsed rule before it takes effect.
 
 ## Out of Scope
 

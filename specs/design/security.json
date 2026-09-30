@@ -42,7 +42,7 @@
     {
       "name": "FinanceAdmin",
       "description": "Maintains the spending policy and sees claims across every team.",
-      "stories": [10, 11],
+      "stories": [10, 11, 12],
       "grants": ["claims:read-all", "policy-rules:read", "policy-rules:manage"],
       "assignTo": ["Finance"]
     }

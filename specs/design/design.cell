@@ -3,18 +3,24 @@ title Expense Claims Team
 component expense-webapp as "Expense Claims Webapp" web-application
 component expense-api as "Expense Claims API" service
 component receipt-agent as "Receipt Reader Agent" ai-agent
+component policy-rule-agent as "Policy Rule Agent" ai-agent
 component expense-db as "Expense Claims DB" database
 
 east user-auth as "Thunder Auth" identity-server
 
 north -> expense-webapp
 north -> receipt-agent
+north -> policy-rule-agent
 
 expense-webapp -> expense-api
 expense-webapp -> receipt-agent
+expense-webapp -> policy-rule-agent
 expense-webapp -> user-auth
 
 expense-api -> user-auth
 expense-api -> expense-db
 
 receipt-agent -> user-auth
+
+policy-rule-agent -> expense-api
+policy-rule-agent -> user-auth

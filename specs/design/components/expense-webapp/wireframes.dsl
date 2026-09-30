@@ -89,11 +89,28 @@ screen PolicyRules "Finance/Admin edits the spending policy's limits"
   row
     heading "Policy Rules"
     right
+    button "Describe a rule" -> DescribePolicyRule
     button "Add rule" primary -> EditPolicyRule
   table "Category | Monthly cap | Description | Active" -> EditPolicyRule
     row "Meals | 20,000 LKR | Team outings and meals | Yes"
     row "Travel | 15,000 LKR | Local travel and transport | Yes"
     row "Accommodation | 30,000 LKR | Overnight stays | Yes"
+
+screen DescribePolicyRule "Finance/Admin adds or changes a policy rule by typing it in plain language"
+  navbar "ExpenseClaims"
+  sidebar "Policy Rules -> PolicyRules | All Claims -> AllClaims"
+  breadcrumb "Policy Rules / Describe a rule"
+  heading "Describe a Rule"
+  text "Type the rule the way you'd say it — for example, \"cap meals at 25,000 LKR a month\"."
+  textarea "e.g. Cap meals at 25,000 LKR a month"
+  row
+    right
+    button "Cancel" -> PolicyRules
+    button "Parse and save" primary  // in place — shows the parsed rule below, then saves it
+  card "Parsed rule"
+    text "Category: Meals"
+    text "Monthly cap: 25,000 LKR"
+    text "Description: Team outings and meals"
 
 screen EditPolicyRule "Finance/Admin adds or edits one policy rule"
   navbar "ExpenseClaims"
@@ -150,4 +167,5 @@ flow "Policy management"
   description "Finance/Admin maintains policy limits and sees spend across every team"
   PolicyRules
   EditPolicyRule
+  DescribePolicyRule
   AllClaims

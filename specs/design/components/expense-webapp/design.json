@@ -10,9 +10,10 @@
   "dependencies": [
     { "kind": "component", "name": "expense-api" },
     { "kind": "component", "name": "receipt-agent" },
+    { "kind": "component", "name": "policy-rule-agent" },
     { "kind": "platform-resource", "name": "user-auth", "resourceType": "thunder-app" }
   ],
-  "description": "The single-page app every actor uses: employees upload receipts, correct auto-filled fields, add a note and submit claims, and see their own claims' status; managers review their team's pending claims and flags and decide them; Finance/Admin edits policy rules and sees claims across every team. It holds no business logic of its own — every read and write goes through expense-api or receipt-agent.",
-  "stories": [1, 2, 4, 5, 7, 8, 9, 10, 11],
+  "description": "The single-page app every actor uses: employees upload receipts, correct auto-filled fields, add a note and submit claims, and see their own claims' status; managers review their team's pending claims and flags and decide them; Finance/Admin edits policy rules (by form or by plain language) and sees claims across every team. It holds no business logic of its own — every read and write goes through expense-api, receipt-agent or policy-rule-agent.",
+  "stories": [1, 2, 4, 5, 7, 8, 9, 10, 11, 12],
   "skillsPinned": ["wireframes", "react-webapp", "oxygen-ui-design-system", "thunder-authentication"]
 }

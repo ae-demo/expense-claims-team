@@ -13,6 +13,19 @@ Feature: Finance policy management and organization-wide spend
       When Dilani from Finance/Admin adds an office supplies rule capped at "10000" LKR per month
       Then the policy rules list shows an office supplies rule capped at "10000" LKR per month
 
+  @story-12
+  Rule: Finance/Admin may add or change a policy rule by typing it in plain language
+
+    Scenario: A plain-language description creates a new rule
+      Given no policy rule exists for office supplies
+      When Dilani from Finance/Admin types "cap office supplies at 10,000 LKR a month"
+      Then the policy rules list shows an office supplies rule capped at "10000" LKR per month
+
+    Scenario: A plain-language description changes an existing rule
+      Given the meals policy rule caps meals at "20000" LKR per month
+      When Dilani from Finance/Admin types "cap meals at 25,000 LKR a month"
+      Then the meals policy rule shows a monthly cap of "25000" LKR
+
   @story-11
   Rule: Finance/Admin sees claims across every team
 
